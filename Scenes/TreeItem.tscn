@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://inventory/item_icons/Log.tres" type="Texture" id=1]
+[ext_resource path="res://Scripts/TreeItem.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Dropped"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 4.08815
+height = 8.97898
+
+[node name="TreeItem" type="KinematicBody2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Dropped"
+anims/Dropped = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0203944, -0.0398384 )
+rotation = 0.755728
+scale = Vector2( 1.22854, 1.22854 )
+shape = SubResource( 3 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_TreeItem_mouse_entered"]
